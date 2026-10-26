@@ -48,3 +48,32 @@
 -- unary relationship : a relationship that involves only one entity type
 -- binary relationship : a relationship that involves two entity types
 -- ternary relationship : a relationship that involves three entity types
+
+
+-- cardinalites : one-to-one, one-to-many, many-to-many
+-- one-to-one relationship : a relationship in which one entity instance of an entity type is associated with at most one entity instance of another entity type
+-- one-to-many relationship : a relationship in which one entity instance of an entity type can be associated with many entity instances of another entity type
+-- many-to-many relationship : a relationship in which many entity instances of an entity type can be associated with many entity instances of another entity type
+
+
+-- participation : total(mandatory), partial(optional)   
+-- total participation : a situation in which every entity instance of an entity type must be associated with at least one entity instance of another entity type
+-- partial participation : a situation in which some entity instances of an entity type may not be associated with any entity instance of another entity type
+
+
+-- __________________________________________________________
+
+
+-- Key constraints : primary key, foreign key, unique key, candidate key, alternate key, composite key, super key, partial key.
+
+-- candidate key : a minimal super key; it contains no unnecessary attributes
+-- primary key : the candidate key chosen to uniquely identify each row in a table
+-- partial key : a set of attributes that can uniquely identify a row in a table, but is not a candidate key
+-- composite key : a key made of two or more attributes together
+-- foreign key : an attribute or set of attributes in one table that references the primary key of another table
+-- super key : a set of one or more attributes that can uniquely identify a row in a table
+-- alternate key : a candidate key that is not selected as the primary key
+-- referential integrity : a rule that ensures a foreign key value either matches an existing primary key value or is NULL
+
+-- __________________________________________________________
+
