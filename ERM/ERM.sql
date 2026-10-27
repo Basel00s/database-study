@@ -73,7 +73,7 @@
 -- foreign key : an attribute or set of attributes in one table that references the primary key of another table
 -- super key : a set of one or more attributes that can uniquely identify a row in a table
 -- alternate key : a candidate key that is not selected as the primary key
--- referential integrity : a rule that ensures a foreign key value either matches an existing primary key value or is NULL
+-- referential integrity : a rule that ensures a foreign key value either matches an existing primary key value or is NULL 
 
 -- __________________________________________________________
 
