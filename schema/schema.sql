@@ -1,0 +1,107 @@
+-- ============================================================
+-- ER Diagram (ERD) => Relational Mapping (Schema)
+-- ============================================================
+-- ------------------------------------------------------------
+-- MAPPING STEPS [s.9]
+-- ------------------------------------------------------------
+-- Step 0: Mapping 1-1 relationship mandatory from 2 sides
+-- Step 1: Mapping of Regular (Strong) Entity Types
+-- Step 2: Mapping of Weak Entity Types
+-- Step 3: Mapping of Binary 1:1 Relation Types
+-- Step 4: Mapping of Binary 1:N Relationship Types
+-- Step 5: Mapping of Binary M:N Relationship Types
+-- Step 6: Mapping of N-ary Relationship Types
+-- Step 7: Mapping of Unary Relationship
+
+-- ------------------------------------------------------------
+-- STEP 1: Regular (Strong) Entity Types [s.10-15]
+-- ------------------------------------------------------------
+-- Simple attribute [s.10]:
+--   Employees(Id PK, Name, Address)
+-- Composite attribute [s.11] -> split into its parts:
+--   Employees(Id PK, Name, City, Street, Country)
+-- Multivalued attribute [s.12] -> separate table:
+--   Employees(Id PK, Name, Age)
+--   Employee_Skills(EmpId FK, Skill)          -- composite PK (EmpId, Skill)
+--   [s.13] DON'T keep one table (Id, Name, Age, Skill): Id/Name/Age repeat per skill.
+--   [s.13] An Emp_Id with no matching Employees row breaks the FK.
+-- Derived attribute [s.14]: in most cases NOT stored in the DB
+-- Complex attribute (multivalued + composite) [s.15]:
+--   Employees(Id PK, Name, Age)
+--   Employee_Addresses(EmpId FK, City, Country)
+
+-- ------------------------------------------------------------
+-- STEP 2: Weak Entity Types [s.17-18]
+-- ------------------------------------------------------------
+-- Rules [s.18]:
+--   1. Create a table for each weak entity
+--   2. Add a FK that corresponds to the owner entity type
+--   3. PK = partial identifier of weak entity + PK of identifying (strong) entity
+-- Example [s.17]:
+--   Employees(Id PK, Name)
+--   Dependant(Emp_Id FK, Dep_Name, DateOfBirth)  -- composite PK (Emp_Id, Dep_Name)
+
+-- ------------------------------------------------------------
+-- STEP 3: Binary 1:1 [s.20-25]  (3 cases)
+-- ------------------------------------------------------------
+-- Both sides Mandatory [s.21] -> ONE table:
+--   Employees(Eid PK, Name, Cid, Model)
+--   Table_xy = all attributes of both entities, PK_xy = PK_x OR PK_y
+-- Mandatory - Optional [s.22] -> TWO tables:
+--   Employees(Eid PK, Name)
+--   Cars(Cid PK, Model, Emp_id FK)     -- PK of Optional side as FK in Mandatory table
+--   [s.23] Car_Id inside Employees is crossed out: employees with no car get Null
+--   [s.24] Emp_Id inside Car works: no Nulls
+-- Both sides Optional [s.25] -> THREE tables:
+--   Employees(Eid PK, Name)
+--   Cars(Cid PK, Model)
+--   EmployeesCar(Cid, Eid)
+
+-- ------------------------------------------------------------
+-- STEP 4: Binary 1:N [s.27-32]  (2 cases)
+-- ------------------------------------------------------------
+-- M-side Mandatory [s.28, s.30] -> TWO tables (PK of the "1" side as FK in the "M" side):
+--   Employees(Eid PK, EName, Dept_Id FK)
+--   Departments(Did PK, DName)
+--   [s.29] Emp_Id inside Department (the 1 side) is crossed out: department rows repeat
+-- M-side Optional [s.31-32] -> THREE tables (PK of 3rd table = PK of the "M" side):
+--   Employees(Eid PK, EName)
+--   Projects(Pid PK, PName)
+--   Project_Employees(Pid FK, Eid PK/FK)
+
+-- ------------------------------------------------------------
+-- STEP 5: Binary M:N [s.34-36]
+-- ------------------------------------------------------------
+-- Always THREE tables, composite PK in the middle table:
+--   Students(Sid PK, SName)
+--   Courses(Cid PK, CName)
+--   Student_Courses(Cid FK, Sid FK)           -- PK = (Cid, Sid)
+-- Attribute on the relationship [s.36] goes in the middle table:
+--   Student_Courses(Cid FK, Sid FK, Grade)
+
+-- ------------------------------------------------------------
+-- STEP 6: N-ary / Ternary [s.38-39]
+-- ------------------------------------------------------------
+-- Table per entity + one relation table holding every entity's PK as FK (composite PK):
+--   Vendor(Vid PK, VName)
+--   Warehouse(WhId PK, WhName)
+--   Product(Code PK, PName)
+--   Product_Vendor_Warehouse(Vid FK, PCode FK, WhId FK, Unit_Cost, Ship_Mode, Ship_Time)
+
+-- ------------------------------------------------------------
+-- STEP 7: Unary [s.41]
+-- ------------------------------------------------------------
+-- Employee Manages Employee -> FK pointing back to the same table:
+--   Employees(Id PK, Name, Manager_Id FK)
+
+-- ------------------------------------------------------------
+-- SUMMARY [s.43]
+-- ------------------------------------------------------------
+-- 1-1 => One Table : choose PK of any entity for this table
+-- 1-1 => 2 Tables  : take PK of Optional as FK in Mandatory table
+-- 1-1 => 3 Tables  : choose PK of any entity for this table
+-- 1-M => 2 Tables  : take PK of One as FK in Many
+-- 1-M => 3 Tables  : PK of third table is PK of Many
+-- M-M => 3 Tables  : PK of third table is composite PK (PK1 + PK2)
+-- Ternary          : table per entity + relation table with each PK as FK (composite PK)
+-- ============================================================
