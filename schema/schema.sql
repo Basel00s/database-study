@@ -2,7 +2,7 @@
 -- ER Diagram (ERD) => Relational Mapping (Schema)
 -- ============================================================
 -- ------------------------------------------------------------
--- MAPPING STEPS [s.9]
+-- MAPPING STEPS 
 -- ------------------------------------------------------------
 -- Step 0: Mapping 1-1 relationship mandatory from 2 sides
 -- Step 1: Mapping of Regular (Strong) Entity Types
@@ -14,7 +14,7 @@
 -- Step 7: Mapping of Unary Relationship
 
 -- ------------------------------------------------------------
--- STEP 1: Regular (Strong) Entity Types [s.10-15]
+-- STEP 1: Regular (Strong) Entity Types
 -- ------------------------------------------------------------
 -- Simple attribute [s.10]:
 --   Employees(Id PK, Name, Address)
@@ -31,7 +31,7 @@
 --   Employee_Addresses(EmpId FK, City, Country)
 
 -- ------------------------------------------------------------
--- STEP 2: Weak Entity Types [s.17-18]
+-- STEP 2: Weak Entity Types 
 -- ------------------------------------------------------------
 -- Rules [s.18]:
 --   1. Create a table for each weak entity
@@ -70,7 +70,7 @@
 --   Project_Employees(Pid FK, Eid PK/FK)
 
 -- ------------------------------------------------------------
--- STEP 5: Binary M:N [s.34-36]
+-- STEP 5: Binary M:N 
 -- ------------------------------------------------------------
 -- Always THREE tables, composite PK in the middle table:
 --   Students(Sid PK, SName)
@@ -80,7 +80,7 @@
 --   Student_Courses(Cid FK, Sid FK, Grade)
 
 -- ------------------------------------------------------------
--- STEP 6: N-ary / Ternary [s.38-39]
+-- STEP 6: N-ary / Ternary 
 -- ------------------------------------------------------------
 -- Table per entity + one relation table holding every entity's PK as FK (composite PK):
 --   Vendor(Vid PK, VName)
@@ -89,13 +89,13 @@
 --   Product_Vendor_Warehouse(Vid FK, PCode FK, WhId FK, Unit_Cost, Ship_Mode, Ship_Time)
 
 -- ------------------------------------------------------------
--- STEP 7: Unary [s.41]
+-- STEP 7: Unary 
 -- ------------------------------------------------------------
 -- Employee Manages Employee -> FK pointing back to the same table:
 --   Employees(Id PK, Name, Manager_Id FK)
 
 -- ------------------------------------------------------------
--- SUMMARY [s.43]
+-- SUMMARY 
 -- ------------------------------------------------------------
 -- 1-1 => One Table : choose PK of any entity for this table
 -- 1-1 => 2 Tables  : take PK of Optional as FK in Mandatory table
@@ -104,4 +104,12 @@
 -- 1-M => 3 Tables  : PK of third table is PK of Many
 -- M-M => 3 Tables  : PK of third table is composite PK (PK1 + PK2)
 -- Ternary          : table per entity + relation table with each PK as FK (composite PK)
+-- ============================================================
+
+-- ------------------------------------------------------------
+-- NOTE: why the "wrong way" slides are crossed out
+-- ------------------------------------------------------------
+-- Optional  => makes NULLs      
+-- Many      => makes DUPLICATES 
+--More  optional = more tables
 -- ============================================================
