@@ -50,7 +50,7 @@ print @name04
 Create database CompanyTesttt
 
 --Use Database
-Use CompanyTesttt
+Use Company
 --Create Table
 
 Create table Employees
